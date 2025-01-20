@@ -17,6 +17,11 @@ on:
         required: false
         type: boolean
         default: false
+      artifact:
+        description: "Store docker artifact (defaults to false)"
+        required: false
+        type: boolean
+        default: false
 
 
 jobs:
@@ -67,3 +72,10 @@ jobs:
           push: ${{ inputs.publish }}
           file: ${{ matrix.services.folder }}/Dockerfile
           tags: waltid/${{ matrix.services.image }}:${{ inputs.tag }}, waltid/${{ matrix.services.image }}:${{ inputs.version }}
+          outputs: type=docker,dest=/tmp/waltid/${{ matrix.services.image }}:${{ inputs.version }}
+      - name: Upload artifact
+        if: ${{ !inputs.artifact }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: waltid/${{ matrix.services.image }}:${{ inputs.version }}
+          path: /tmp/waltid/${{ matrix.services.image }}:${{ inputs.version }}.tar
