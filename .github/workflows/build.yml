@@ -6,6 +6,12 @@ on:
       - main
 
 jobs:
+#  environment:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      artifact-path: "/tmp"
+#    steps:
+#      - run: echo "Setting up environment"
   version:
     uses: walt-id/waltid-identity/.github/workflows/version.yml@266f5c09359450c39019a6da38f2b331e7122918
   gradle-build:
@@ -14,7 +20,15 @@ jobs:
     with:
       version: ${{ needs.version.outputs.release_version }}
   docker-build:
-    uses: walt-id/waltid-identity/.github/workflows/build-docker.yml@266f5c09359450c39019a6da38f2b331e7122918
-    needs: version
+    uses: walt-id/waltid-identity/.github/workflows/build-docker.yml@feat/docker-build-share
+    needs: [ version ]
     with:
       version: ${{ needs.version.outputs.release_version }}
+      artifact: ${{ needs.environment.outputs.artifact-path }}
+  ebsi-ct-v3:
+    uses: walt-id/waltid-identity/.github/workflows/ebsictv3.yml@feat/docker-build-share
+    needs: [ version, docker-build ]
+    secrets: inherit
+    with:
+      artifact: issuer-api
+      tag: "waltid/issuer-api:${{ needs.version.outputs.release_version }}"
