@@ -11,7 +11,7 @@ data:
     webHost = "0.0.0.0"
     webPort = 3000
   issuer-service.conf: |
-    baseUrl = "http://10.140.0.48"
+    baseUrl = "http://10.140.15.232"
   authentication-service.conf: |
     name = "keycloak"
     authorizeUrl = "https://keycloak.walt-test.cloud/realms/waltid-keycloak-ktor/protocol/openid-connect/auth"
