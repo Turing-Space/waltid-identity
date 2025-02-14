@@ -52,7 +52,7 @@ spec:
               readOnly: true
           env:
             - name: ISSUER_API_HOST
-              value: '10.140.0.5'
+              value: '10.140.15.232'
           ports:
             - containerPort: 3000
               name: http-api
