@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
         - name: issuer
-          image: waltid/issuer-api:latest
+          image: waltid/issuer-api:v1.0.2502180906
           volumeMounts:
             - name: issuer-web-config
               mountPath: '/waltid-issuer-api/config/'
