@@ -11,7 +11,7 @@ data:
     webHost = "0.0.0.0"
     webPort = 3000
   issuer-service.conf: |
-    baseUrl = "http://${ISSUER_API_HOST}"
+    baseUrl = "http://10.140.15.232"
   authentication-service.conf: |
     name = "keycloak"
     authorizeUrl = "https://keycloak.walt-test.cloud/realms/waltid-keycloak-ktor/protocol/openid-connect/auth"
@@ -23,7 +23,7 @@ data:
           format = "vc+sd-jwt",
           cryptographic_binding_methods_supported = ["jwk"]
           credential_signing_alg_values_supported = ["RS256"]
-          vct = "http://${ISSUER_API_HOST}/identity_credential"
+          vct = "http://10.140.15.232/identity_credential"
       }
     }
 ---
@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
         - name: issuer
-          image: waltid/issuer-api:v1.0.2502180906
+          image: waltid/issuer-api:v1.0.2502181817
           volumeMounts:
             - name: issuer-web-config
               mountPath: '/waltid-issuer-api/config/'
